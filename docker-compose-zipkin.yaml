@@ -1,0 +1,19 @@
+version: "3"
+services: 
+  zipkin-ui:
+    image: openzipkin/zipkin-ui
+    container_name: zipkin-ui
+    environment:
+      # Change this if connecting to a different zipkin server
+      - ZIPKIN_BASE_URL=http://zipkin:9411
+    ports:
+      - 80:80
+  zipkin:
+    image: openzipkin/zipkin
+    environment:
+      - STORAGE_TYPE=cassandra3
+      # When using the test docker image, or have schema pre-installed, you don't need to re-install it
+      - CASSANDRA_ENSURE_SCHEMA=false
+      # When overriding this value, note the minimum supported version is 3.9
+      # If you you cannot run 3.9+, but can run 2.2+, set STORAGE_TYPE=cassandra
+      - CASSANDRA_CONTACT_POINTS=10.6.213.183

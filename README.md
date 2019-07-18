@@ -16,3 +16,18 @@ git clone https://github.com/jaegertracing/jaeger.git
 ```code
 MODE=test sh ./plugin/storage/cassandra/schema/create.sh | cqlsh
 ```
+
+## start 
+
+* docker-compose
+
+```code
+docker-compose up -d
+```
+
+* view UI webpage
+
+
+```code
+open http://hostip:16686
+```

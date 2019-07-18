@@ -2,16 +2,17 @@ version: "3"
 services: 
   scylladb:
     image: scylladb/scylla
+    command: --authenticator=PasswordAuthenticator
     ports: 
     - "9042:9042"
   scylladb2:
    image: scylladb/scylla
-   command: --seeds=scylladb
+   command: --seeds=scylladb --authenticator=PasswordAuthenticator
    ports: 
    - "9043:9042"
   scylladb3:
    image: scylladb/scylla
-   command: --seeds=scylladb
+   command: --seeds=scylladb --authenticator=PasswordAuthenticator
    ports: 
    - "9044:9042"
   jaeger:
@@ -20,6 +21,8 @@ services:
       - COLLECTOR_ZIPKIN_HTTP_PORT=9411
       - CASSANDRA_SERVERS=scylladb,scylladb2,scylladb3
       - SPAN_STORAGE_TYPE=cassandra
+      - CASSANDRA_USERNAME=cassandra
+      - CASSANDRA_PASSWORD=cassandra
     ports:
       - "9411:9411"
       - "5775:5775/udp"
